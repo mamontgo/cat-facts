@@ -1,0 +1,66 @@
+databaseChangeLog:
+  - changeSet:
+      id: init-install
+      author: Mark Montgomery
+      changes:
+        - createTable:
+            tableName: user
+            columns:
+              - column:
+                  name: id
+                  type: varchar(128)
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: first
+                  type: varchar(256)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: last
+                  type: varchar(256)
+                  constraints:
+                    nullable: false
+        - createTable:
+            tableName: fact
+            columns:
+              - column:
+                  name: id
+                  type: varchar(128)
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: user_id
+                  type: varchar(128)
+              - column:
+                  name: text
+                  type: varchar(1024)
+              - column:
+                  name: type
+                  type: varchar(64)
+              - column:
+                  name: upvotes
+                  type: bigint
+              - column:
+                  name: user_upvoted
+                  type: boolean
+        - addForeignKeyConstraint:
+            baseColumnNames: user_id
+            baseTableName: fact
+            constraintName: fk_fact_user_id
+            onDelete: CASCADE
+            onUpdate: RESTRICT
+            referencedColumnNames: id
+            referencedTableName: user
+        - loadData:
+            encoding: UTF-8
+            file: db/data/users.csv
+            tableName: user
+        - loadData:
+            encoding: UTF-8
+            file: db/data/facts.csv
+            tableName: fact
+            quotchar: '"'
+

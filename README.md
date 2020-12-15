@@ -36,6 +36,15 @@ cd cat-demo-boot
 mvn spring-boot:run
 ```
 
+See http://localhost:8080/swagger-ui.html to verify server is running
+
+### Documentation
+
+I have installed swagger API documentation tool and this can be accessed after the service is started
+
+http://localhost:8080/swagger-ui.html
+
+
 
 ### Testing
 When built with tests code coverage reports will be published for each sub module:
